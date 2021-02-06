@@ -1,0 +1,29 @@
+- [ ] Generation of description
+- [ ] Generation of author name
+- [ ] Generation of fvm
+
+
+Add default basic template for:
+- [ ] GetX
+- [ ] MobX
+- [ ] Provider
+- [ ] Riverpod
+- [ ] None
+
+
+Add mvc-feature-first templates for GetX:
+- [ ] Basic
+- [ ] HiveDB
+- [ ] sqflite
+
+
+Add mvc-function-first templates for GetX:
+- [ ] Basic
+- [ ] HiveDB
+- [ ] sqflite
+
+
+Add clean-architecture templates for GetX:
+- [ ] Basic
+- [ ] HiveDB
+- [ ] sqflite

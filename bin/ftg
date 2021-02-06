@@ -1,0 +1,19 @@
+#!/bin/bash
+
+script_path=$(dirname $0)/../scripts/
+
+## Check required commands:
+if [[ -z $(which ack) ]]; then
+  echo "You need install ack-grep"
+  exit 1
+fi
+
+if [[ -z $(which perl) ]]; then
+  echo "You need install perl"
+  exit 1
+fi
+
+
+if [[ ${1} == run ]]; then
+  bash ${script_path}/create.sh
+fi
