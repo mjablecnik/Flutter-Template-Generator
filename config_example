@@ -1,0 +1,20 @@
+#!/bin/bash
+
+project_name=
+project_description=
+project_author="Martin Jablečník"
+state_manager="GetX"
+folders_organization="mvc-function-first"
+project_type="basic"
+git_setup=true    # true or false
+fvm_setup=true    # true or false
+flutter_version="stable"     # all fvm possible versions (master, stable, alpha, beta, 2.7.0, 2.12.0, etc..)
+
+## All possible licenses:
+#  GNU GPLv3
+#  GNU LGPLv3
+#  Mozilla Public License 2.0
+#  Apache License 2.0
+#  MIT License
+#
+project_license="MIT License"

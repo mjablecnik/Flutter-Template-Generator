@@ -1,9 +1,16 @@
 #!/bin/bash
 
+if [[ -n ${FTG_CONFIG} ]]; then
+  config_file=${FTG_CONFIG}
+else
+  config_file=$(dirname $0)/../config
+fi
+
 template_path=$(dirname $0)/../templates
 file_path=$(dirname $0)/../files
 use_default=false
 
+source ${config_file}
 
 _contains () {  # Check if space-separated list $1 contains line $2
   echo "$1" | tr ' ' '\n' | grep -F -x -q "$2"
@@ -283,7 +290,6 @@ generate () {
   ack -l "\{\{project_license_tag\}\}" | xargs perl -pi -E "s/\{\{project_license_tag\}\}/${project_license_tag}/g"
   ack -l "\{\{flutter_version\}\}" | xargs perl -pi -E "s/\{\{flutter_version\}\}/${flutter_version}/g"
   
-  exit 0
   flutter pub get
   
   if [[ ${git_setup} == true ]]; then
