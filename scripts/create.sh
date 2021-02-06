@@ -267,15 +267,21 @@ generate () {
   fi
   
   cp -r ${selected_template_path}/lib .
-  cp ${file_path}/gitignore ./.gitignore
+  cp ${file_path}/gitignore .gitignore
   cp ${selected_template_path}/pubspec.yaml .
   cp ${file_path}/README.md .
+
+  if [[ ${fvm_setup} == true ]]; then
+    mkdir .fvm
+    cp ${file_path}/fvm_config.json .fvm/fvm_config.json
+  fi
   
   ack -l "ftg_project_template" | xargs perl -pi -E "s/ftg_project_template/${project_name}/g"
   ack -l "\{\{project_description\}\}" | xargs perl -pi -E "s/\{\{project_description\}\}/${project_description}/g"
   ack -l "\{\{project_author\}\}" | xargs perl -pi -E "s/\{\{project_author\}\}/${project_author}/g"
   ack -l "\{\{project_license\}\}" | xargs perl -pi -E "s/\{\{project_license\}\}/${project_license}/g"
   ack -l "\{\{project_license_tag\}\}" | xargs perl -pi -E "s/\{\{project_license_tag\}\}/${project_license_tag}/g"
+  ack -l "\{\{flutter_version\}\}" | xargs perl -pi -E "s/\{\{flutter_version\}\}/${flutter_version}/g"
   
   exit 0
   flutter pub get

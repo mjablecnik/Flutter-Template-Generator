@@ -1,6 +1,6 @@
 - [x] Generation of description
 - [x] Generation of author name
-- [ ] Generation of fvm
+- [x] Generation of fvm
 
 - [ ] Save most used settings into config
 - [x] Add license
