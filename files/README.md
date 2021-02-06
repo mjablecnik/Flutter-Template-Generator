@@ -1,5 +1,5 @@
-[comment]: <> (# Title)
-[comment]: <> (description)
+# ftg_project_template
+{{project_description}}
 
 
 ## Installation
@@ -26,8 +26,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 
 ## Author
- - Martin Jablečník
+ - {{project_author}}
 
 
 ## License
-[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
+[{{project_license}}](https://choosealicense.com/licenses/{{project_license_tag}}/)

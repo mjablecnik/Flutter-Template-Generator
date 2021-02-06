@@ -9,6 +9,13 @@ _contains () {  # Check if space-separated list $1 contains line $2
   echo "$1" | tr ' ' '\n' | grep -F -x -q "$2"
 }
 
+declare -A licenses=( 
+  ["GNU GPLv3"]="gpl-3.0" 
+  ["GNU LGPLv3"]="lgpl-3.0"
+  ["Mozilla Public License 2.0"]="mpl-2.0"
+  ["Apache License 2.0"]="apache-2.0"
+  ["MIT License"]="mit"
+)
 
 while (( "$#" )); do
 
@@ -37,6 +44,9 @@ while (( "$#" )); do
     fvm_setup=true
     flutter_version=${2}
 
+  elif [[ ${1} == '-l' || ${1} == '--license' ]]; then
+    project_license=${2}
+
   elif [[ ${1} == '-h' || ${1} == '--help' ]]; then
     echo "
     Flags:
@@ -48,6 +58,7 @@ while (( "$#" )); do
         -p --project-type
         -g --git
         -v --flutter-version
+        -l --license
         -h --help
     "
   fi
@@ -156,9 +167,6 @@ setup_folder_organization () {
 
 setup_project_type () {
   local project_type_list=$(ls ${template_path}/${state_manager}/${folders_organization} -l | grep '^d' | awk "{print \$(NF)}")
-  if [[ -z ${project_type_list} ]]; then
-    use_default=true
-  fi
 
   if [[ -z ${project_type} ]]; then
     echo "Select project type:"
@@ -222,6 +230,22 @@ setup_flutter_version () {
   fi
 }
 
+setup_license () {
+  if [[ -z ${project_license} ]]; then
+    echo "Select license:"
+    select project_license in "${!licenses[@]}";
+    do
+      echo "You picked ${project_license} (${REPLY})"
+      echo ""
+      break
+    done
+  else
+    echo "License is: " ${project_license} 
+    echo ""
+  fi
+  project_license_tag=${licenses[${project_license}]}
+}
+
 print_result () {
   echo "Project name is:" ${project_name}
   echo "Description is:" ${project_description}
@@ -247,8 +271,13 @@ generate () {
   cp ${selected_template_path}/pubspec.yaml .
   cp ${file_path}/README.md .
   
-  ack -l "getx_example" | xargs perl -pi -E "s/getx_example/${project_name}/g"
+  ack -l "ftg_project_template" | xargs perl -pi -E "s/ftg_project_template/${project_name}/g"
+  ack -l "\{\{project_description\}\}" | xargs perl -pi -E "s/\{\{project_description\}\}/${project_description}/g"
+  ack -l "\{\{project_author\}\}" | xargs perl -pi -E "s/\{\{project_author\}\}/${project_author}/g"
+  ack -l "\{\{project_license\}\}" | xargs perl -pi -E "s/\{\{project_license\}\}/${project_license}/g"
+  ack -l "\{\{project_license_tag\}\}" | xargs perl -pi -E "s/\{\{project_license_tag\}\}/${project_license_tag}/g"
   
+  exit 0
   flutter pub get
   
   if [[ ${git_setup} == true ]]; then
@@ -259,8 +288,8 @@ generate () {
 
 
 setup_project_name 
-setup_description #todo
-setup_author_name #todo
+setup_description 
+setup_author_name 
 setup_state_manager
 if [[ ${use_default} == false ]]; then
   setup_folder_organization
@@ -270,6 +299,8 @@ if [[ ${use_default} == false ]]; then
 fi
 setup_git
 setup_fvm #todo
+setup_license
+
 
 generate
 echo ""

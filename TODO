@@ -1,6 +1,9 @@
-- [ ] Generation of description
-- [ ] Generation of author name
+- [x] Generation of description
+- [x] Generation of author name
 - [ ] Generation of fvm
+
+- [ ] Save most used settings into config
+- [x] Add license
 
 
 Add default basic template for:
