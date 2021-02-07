@@ -277,12 +277,13 @@ setup_license () {
 print_result () {
   echo ""
   echo "Generated project with arguments:"
-  echo "Project name is:" ${project_name}
-  echo "Description is:" ${project_description}
-  echo "Author is:" ${project_author}
-  echo "State manager:" ${state_manager}
-  echo "Folders organization is:" ${folders_organization}
-  echo "Project type is:" ${project_type}
+  echo ""
+  echo "    Project name is:" ${project_name}
+  echo "    Description is:" ${project_description}
+  echo "    Author is:" ${project_author}
+  echo "    State manager:" ${state_manager}
+  echo "    Folders organization is:" ${folders_organization}
+  echo "    Project type is:" ${project_type}
 }
 
 generate () {

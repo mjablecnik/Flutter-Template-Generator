@@ -18,6 +18,7 @@
  - [Flutter](https://flutter.dev/): UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
  - [GetX](https://pub.dev/packages/get): State management, Dependency injection management and Route management in one simply solution.
  - [HiveDB](https://hivedb.dev/): Lightweight and blazing fast key-value database inspired by Bitcask.
+ - [sqflite](https://pub.dev/packages/sqflite): Great SQLite plugin for Flutter.
 
 
 

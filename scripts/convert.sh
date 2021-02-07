@@ -153,11 +153,12 @@ setup_project_type () {
 print_result () {
   echo ""
   echo "Generated template with arguments:"
-  echo "Project name is:" ${project_name}
-  echo "Project path is:" ${project_path}
-  echo "State manager:" ${state_manager}
-  echo "Folders organization is:" ${folders_organization}
-  echo "Project type is:" ${project_type}
+  echo ""
+  echo "    Project name is:" ${project_name}
+  echo "    Project path is:" ${project_path}
+  echo "    State manager:" ${state_manager}
+  echo "    Folders organization is:" ${folders_organization}
+  echo "    Project type is:" ${project_type}
 }
 
 generate_template () {
