@@ -324,6 +324,10 @@ generate () {
   ack -l "\{\{flutter_version\}\}" | xargs perl -pi -E "s/\{\{flutter_version\}\}/${flutter_version}/g"
   
   flutter pub get
+
+  #if [[ -n $(grep build_runner pubspec.yaml) ]]; then
+  #  flutter packages pub run build_runner build --delete-conflicting-outputs
+  #fi
   
   if [[ ${git_setup} == true ]]; then
     git add .gitignore .metadata *
