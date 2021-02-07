@@ -1,6 +1,7 @@
 #!/bin/bash
 
-script_path=$(dirname $0)/../scripts/
+ftg_dir_path=$(echo "$(dirname $0)/.." | sed -e 's/\/bin\/\.\.\/scripts\/\.\.//;')
+script_path=${ftg_dir_path}/scripts/
 
 ## Check required commands:
 if [[ -z $(which ack) ]]; then
@@ -14,10 +15,74 @@ if [[ -z $(which perl) ]]; then
 fi
 
 
-if [[ ${1} == run || ${1} == generate ]]; then
+show_generator_help () {
+    echo "
+    Flags:
+        -n --name                       Project name (in format: my_flutter_project)
+        -d --description                Project description
+        -a --author                     Project author
+        -s --state-management
+        -o --folders-organization
+        -p --project-type
+        -g --git                        Setup git
+        -v --flutter-version            Setup fvm 
+        -l --license
+        -h --help
+        --disable-git
+        --disable-config
+
+
+    Example:
+
+    ftg generate --name my_new_project \\
+        --description 'My pretty description' \\
+        --author 'Martin Jablečník' \\
+        --state-management 'GetX' \\
+        --folders-organization 'mvc-function-first' \\
+        --project-type 'basic' \\
+        --flutter-version 'stable' \\
+        --license 'MIT License' 
+    "
+}
+
+
+if [[ ${1} == run ]]; then
   bash ${script_path}/generate.sh
+elif [[ ${1} == generate ]]; then
+  if [[ ${2} == help ]]; then
+    show_generator_help
+  else
+    bash ${script_path}/generate.sh "${@}"
+  fi
 elif [[ ${1} == change ]]; then
-  bash ${script_path}/change.sh
+  if [[ ${2} == help ]]; then
+    echo "
+If you want to change some template, you can run this command and select the template.
+Script will generate test project in sandbox directory which you can open it in your editor and change it.
+After all changes you can run command: \`ftg convert\` for save.
+    "
+  else
+    bash ${script_path}/change.sh
+  fi
 elif [[ ${1} == convert ]]; then
-  bash ${script_path}/convert.sh
+  if [[ ${2} == help ]]; then
+    echo "
+If you have some already existing project which you would like to convert into ftg template, 
+you can move it into sandbox directory and run command: \`ftg convert\`,
+or run command: ftg convert --project-path <path of your project> 
+for convert it without moving into any directory.
+    "
+  else
+    bash ${script_path}/convert.sh "${@}"
+  fi
+else
+  echo "
+Commands:
+  run            run in interactive mode for generate new project 
+  generate       generate new project with options 
+  change         generate new project in sandbox directory for change any template
+  convert        convert and save any existing project into new template  
+
+  For more information you can run help after any commands.
+  "
 fi

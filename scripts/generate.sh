@@ -4,8 +4,8 @@ ftg_dir_path=$(echo "$(dirname $0)/.." | sed -e 's/\/bin\/\.\.\/scripts\/\.\.//;
 
 if [[ -n ${FTG_CONFIG} ]]; then
   config_file=${FTG_CONFIG}
-else
-  config_file=${ftg_dir_path}/config
+#else
+#  config_file=${ftg_dir_path}/config
 fi
 
 ftg_project_name=ftg_project_template
@@ -24,6 +24,24 @@ declare -A licenses=(
   ["Apache License 2.0"]="apache-2.0"
   ["MIT License"]="mit"
 )
+
+show_help () {
+    echo "
+    Flags:
+        -n --name                       Project name (in format: my_flutter_project)
+        -d --description                Project description
+        -a --author                     Project author
+        -s --state-management
+        -o --folders-organization
+        -p --project-type
+        -g --git                        Setup git
+        -v --flutter-version            Setup fvm 
+        -l --license
+        -h --help
+        --disable-git
+        --disable-config
+    "
+}
 
 while (( "$#" )); do
 
@@ -61,20 +79,9 @@ while (( "$#" )); do
   elif [[ ${1} == '--disable-git' ]]; then
     git_setup=false
 
-  elif [[ ${1} == '-h' || ${1} == '--help' ]]; then
-    echo "
-    Flags:
-        -n --name
-        -d --description
-        -a --author
-        -s --state-management
-        -o --folders-organization
-        -p --project-type
-        -g --git
-        -v --flutter-version
-        -l --license
-        -h --help
-    "
+  elif [[ ${1} == '-h' || ${1} == '--help'|| ${1} == 'help' ]]; then
+    show_help
+    exit 0
   fi
   
   shift
@@ -82,7 +89,9 @@ done
 
 echo ""
 
-source ${config_file}
+if [[ -n ${config_file} ]]; then
+  source ${config_file}
+fi
 
 setup_project_name () {
   if [[ -z ${project_name} ]]; then
