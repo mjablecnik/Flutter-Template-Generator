@@ -29,7 +29,6 @@ bash $(dirname $0)/generate.sh --name ${ftg_project_name} \
 
 
 echo ""
-echo ""
 echo "Your template you can change in this directory:"
 echo ""
 echo "      ${sandbox_path}/${ftg_project_template}"

@@ -159,6 +159,7 @@ print_result () {
   echo "    State manager:" ${state_manager}
   echo "    Folders organization is:" ${folders_organization}
   echo "    Project type is:" ${project_type}
+  echo ""
 }
 
 generate_template () {
