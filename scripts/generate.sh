@@ -142,7 +142,7 @@ setup_author_name () {
 }
 
 setup_state_manager () {
-  local state_managers_list=$(ls ${template_path} -l | grep '^d' | grep -v none | awk "{print \$(NF)}")
+  local state_managers_list=$(ls ${template_path} -l | grep '^d' | grep -v None | awk "{print \$(NF)}")
 
   if [[ -z ${state_manager} ]]; then
     echo "Select package for state management:"
@@ -153,7 +153,7 @@ setup_state_manager () {
       break
     done
   
-    if ! _contains "${state_managers_list}" "${state_manager}"; then
+    if ! _contains "${state_managers_list} None" "${state_manager}"; then
       echo "Selected wrong number."
       exit 1
     fi

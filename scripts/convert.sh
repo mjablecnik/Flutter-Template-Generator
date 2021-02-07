@@ -62,7 +62,7 @@ write_state_manager () {
 }
 
 setup_state_manager () {
-  local state_managers_list=$(ls ${template_path} -l | grep '^d' | grep -v none | awk "{print \$(NF)}")
+  local state_managers_list=$(ls ${template_path} -l | grep '^d' | grep -v None | awk "{print \$(NF)}")
 
   echo "Select package for state management:"
   select state_manager in ${state_managers_list} "None" "Add new";
