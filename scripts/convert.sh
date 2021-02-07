@@ -95,21 +95,24 @@ write_folders_organization () {
 }
 
 setup_folders_organization () {
-  if [[ -z ${folders_organization_list} || ${new_state_manager} == true ]]; then
+  if [[ ${new_state_manager} == true ]]; then
     write_folders_organization
   else
     local folders_organization_list=$(ls ${template_path}/${state_manager} -l | grep '^d' | awk "{print \$(NF)}")
-
-    echo "Select your folders organization:"
-    select folders_organization in ${folders_organization_list} "Add new";
-    do
-      echo "You picked ${folders_organization} (${REPLY})"
-      echo ""
-      break
-    done
-
-    if [[ ${folders_organization} == "Add new" ]]; then
+    if [[ -z ${folders_organization_list} ]]; then
       write_folders_organization
+    else
+      echo "Select your folders organization:"
+      select folders_organization in ${folders_organization_list} "Add new";
+      do
+        echo "You picked ${folders_organization} (${REPLY})"
+        echo ""
+        break
+      done
+
+      if [[ ${folders_organization} == "Add new" ]]; then
+        write_folders_organization
+      fi
     fi
   fi
 }
@@ -128,21 +131,24 @@ write_project_type () {
 
 setup_project_type () {
 
-  if [[ -z ${folders_organization_list} || ${new_folders_organization} == true ]]; then
+  if [[ ${new_folders_organization} == true ]]; then
     write_project_type
   else
     local project_type_list=$(ls ${template_path}/${state_manager}/${folders_organization} -l | grep '^d' | awk "{print \$(NF)}")
-
-    echo "Select project type:"
-    select project_type in ${project_type_list} "Add new";
-    do
-      echo "You picked ${project_type} (${REPLY})"
-      echo ""
-      break
-    done
-
-    if [[ ${folders_organization} == "Add new" ]]; then
+    if [[ -z ${project_type_list} ]]; then
       write_project_type
+    else
+      echo "Select project type:"
+      select project_type in ${project_type_list} "Add new";
+      do
+        echo "You picked ${project_type} (${REPLY})"
+        echo ""
+        break
+      done
+
+      if [[ ${folders_organization} == "Add new" ]]; then
+        write_project_type
+      fi
     fi
   fi
 }
