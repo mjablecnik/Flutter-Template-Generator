@@ -53,7 +53,7 @@ setup_project () {
 write_state_manager () {
   echo ""
   echo "Write state management:"
-  read -p "(default) " state_manager
+  read -p "(None) " state_manager
   echo ""
 
   new_state_manager=true
@@ -64,43 +64,27 @@ write_state_manager () {
   fi
 }
 
-select_state_manager () {
+setup_state_manager () {
   local state_managers_list=$(ls ${template_path} -l | grep '^d' | grep -v none | awk "{print \$(NF)}")
 
   echo "Select package for state management:"
-  select state_manager in ${state_managers_list} "None";
+  select state_manager in ${state_managers_list} "None" "Add new";
   do
     echo "You picked ${state_manager} (${REPLY})"
     echo ""
     break
   done
+
+  if [[ ${state_manager} == "Add new" ]]; then
+    write_state_manager
+  fi
   
-  if ! _contains "${state_managers_list}" "${state_manager}"; then
-    echo "Selected wrong number."
-    exit 1
-  fi
-}
-
-setup_state_manager () {
-  if [[ -z ${state_manager} ]]; then
-    read -p "Do you want to add a new state management? [y/N] " -n 1 -r
-    echo ""
-
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      write_state_manager
-    else 
-      select_state_manager
-    fi
-  else
-    echo "State management is: " ${state_manager} 
-    echo ""
-  fi
 }
 
 write_folders_organization () {
     echo ""
     echo "Write folders organization:"
-    read -p "(basic) " folders_organization
+    read -p "(default) " folders_organization
     echo ""
 
     new_folders_organization=true
@@ -110,51 +94,30 @@ write_folders_organization () {
     fi
 }
 
-select_folders_organization () {
-  local folders_organization_list=$(ls ${template_path}/${state_manager} -l | grep '^d' | awk "{print \$(NF)}")
-  if [[ -z ${folders_organization_list} ]]; then
-    use_default=true
-    folders_organization=default
+setup_folders_organization () {
+  if [[ -z ${folders_organization_list} || ${new_state_manager} == true ]]; then
+    write_folders_organization
   else
+    local folders_organization_list=$(ls ${template_path}/${state_manager} -l | grep '^d' | awk "{print \$(NF)}")
+
     echo "Select your folders organization:"
-    select folders_organization in ${folders_organization_list};
+    select folders_organization in ${folders_organization_list} "Add new";
     do
       echo "You picked ${folders_organization} (${REPLY})"
       echo ""
       break
     done
-    
-    if ! _contains "${folders_organization_list}" "${folders_organization}"; then
-      echo "Selected wrong number."
-      exit 1
-    fi
-  fi
-}
 
-setup_folders_organization () {
-  if [[ -z ${folders_organization} ]]; then
-    if [[ ${new_state_manager} == true ]]; then
+    if [[ ${folders_organization} == "Add new" ]]; then
       write_folders_organization
-    else
-      read -p "Do you want to add a new folders organization? [y/N] " -n 1 -r
-      echo ""
-    
-      if [[ $REPLY =~ ^[Yy]$ ]]; then
-        write_folders_organization
-      else 
-        select_folders_organization
-      fi
     fi
-  else
-    echo "Folders organization is: " ${folders_organization} 
-    echo ""
   fi
 }
 
 write_project_type () {
     echo ""
     echo "Write project type:"
-    read project_type
+    read -p "(basic)" project_type
     echo ""
     new_folders_organization=true
 
@@ -163,44 +126,24 @@ write_project_type () {
     fi
 }
 
-select_project_type () {
-  local project_type_list=$(ls ${template_path}/${state_manager}/${folders_organization} -l | grep '^d' | awk "{print \$(NF)}")
+setup_project_type () {
 
-  if [[ -z ${folders_organization_list} ]]; then
-    project_type=basic
+  if [[ -z ${folders_organization_list} || ${new_folders_organization} == true ]]; then
+    write_project_type
   else
+    local project_type_list=$(ls ${template_path}/${state_manager}/${folders_organization} -l | grep '^d' | awk "{print \$(NF)}")
+
     echo "Select project type:"
-    select project_type in ${project_type_list};
+    select project_type in ${project_type_list} "Add new";
     do
       echo "You picked ${project_type} (${REPLY})"
       echo ""
       break
     done
-    
-    if ! _contains "${project_type_list}" "${project_type}"; then
-      echo "Selected wrong number."
-      exit 1
-    fi
-  fi
-}
 
-setup_project_type () {
-  if [[ -z ${project_type} ]]; then
-    if [[ ${new_folders_organization} == true ]]; then
+    if [[ ${folders_organization} == "Add new" ]]; then
       write_project_type
-    else
-      read -p "Do you want to add a new project type? [y/N] " -n 1 -r
-      echo ""
-    
-      if [[ $REPLY =~ ^[Yy]$ ]]; then
-        write_project_type
-      else 
-        select_project_type
-      fi
     fi
-  else
-    echo "Project type is: " ${project_type} 
-    echo ""
   fi
 }
 
