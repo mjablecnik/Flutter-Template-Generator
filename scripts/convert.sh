@@ -25,12 +25,9 @@ _contains () {  # Check if space-separated list $1 contains line $2
 
 while (( "$#" )); do
 
-  if [[ ${1} == '-n' || ${1} == '--name' ]]; then
-    project_name=${2}
-  fi
-
   if [[ ${1} == '-p' || ${1} == '--project-path' ]]; then
     project_path=${2}
+    project_name=$(basename ${project_path})
   fi
   
   shift
