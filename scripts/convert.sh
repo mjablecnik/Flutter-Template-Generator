@@ -179,10 +179,6 @@ generate_template () {
     cp -r ${project_path}/integration_test ${selected_template_path}
   fi
 
-  if [[ -d ${project_path}/README.md ]]; then
-    cp -r ${project_path}/README.md ${selected_template_path}
-  fi
-
   cd ${selected_template_path}
 
   ack -l "${project_name}" | xargs perl -pi -E "s/${project_name}/${ftg_project_name}/g"

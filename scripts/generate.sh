@@ -301,6 +301,7 @@ generate () {
   cp -r ${selected_template_path}/lib .
   cp ${file_path}/gitignore .gitignore
   cp ${selected_template_path}/pubspec.yaml .
+  cp ${file_path}/README.md .
 
   if [[ -d ${selected_template_path}/test ]]; then
     cp -r ${selected_template_path}/test .
@@ -308,12 +309,6 @@ generate () {
 
   if [[ -d ${selected_template_path}/integration_test ]]; then
     cp -r ${selected_template_path}/integration_test .
-  fi
-
-  if [[ -d ${selected_template_path}/README.md ]]; then
-    cp -r ${selected_template_path}/README.md .
-  else
-    cp ${file_path}/README.md .
   fi
 
   if [[ ${fvm_setup} == true ]]; then
