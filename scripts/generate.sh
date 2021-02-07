@@ -1,13 +1,15 @@
 #!/bin/bash
 
+ftg_dir_path=$(echo "$(dirname $0)/.." | sed -e 's/\/bin\/\.\.\/scripts\/\.\.//;')
+
 if [[ -n ${FTG_CONFIG} ]]; then
   config_file=${FTG_CONFIG}
 else
-  config_file=$(dirname $0)/../config
+  config_file=${ftg_dir_path}/config
 fi
 
-template_path=$(dirname $0)/../templates
-file_path=$(dirname $0)/../files
+template_path=${ftg_dir_path}/templates
+file_path=${ftg_dir_path}/files
 use_default=false
 
 _contains () {  # Check if space-separated list $1 contains line $2
