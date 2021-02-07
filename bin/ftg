@@ -75,6 +75,8 @@ for convert it without moving into any directory.
   else
     bash ${script_path}/convert.sh "${@}"
   fi
+elif [[ ${1} == clean ]]; then
+  rm -rf ${ftg_dir_path}/sandbox/* 
 else
   echo "
 Commands:
@@ -82,6 +84,7 @@ Commands:
   generate       generate new project with options 
   change         generate new project in sandbox directory for change any template
   convert        convert and save any existing project into new template  
+  clean          clean sandbox
 
   For more information you can run help after any commands.
   "
