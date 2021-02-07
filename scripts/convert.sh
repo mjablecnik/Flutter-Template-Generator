@@ -173,6 +173,7 @@ generate_template () {
   cd ${selected_template_path}
 
   ack -l "${project_name}" | xargs perl -pi -E "s/${project_name}/${ftg_project_name}/g"
+  sed -i '/description: /c\description: {{project_description}}' pubspec.yaml
 }
 
 setup_project
