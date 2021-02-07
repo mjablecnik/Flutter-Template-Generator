@@ -192,7 +192,7 @@ setup_folders_organization () {
 setup_project_type () {
   local project_type_list=$(ls ${template_path}/${state_manager}/${folders_organization} -l | grep '^d' | awk "{print \$(NF)}")
 
-  if [[ -z ${folders_organization_list} ]]; then
+  if [[ -z ${project_type_list} ]]; then
     project_type=basic
   else
     if [[ -z ${project_type} ]]; then
