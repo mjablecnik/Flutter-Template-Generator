@@ -10,8 +10,6 @@ template_path=$(dirname $0)/../templates
 file_path=$(dirname $0)/../files
 use_default=false
 
-source ${config_file}
-
 _contains () {  # Check if space-separated list $1 contains line $2
   echo "$1" | tr ' ' '\n' | grep -F -x -q "$2"
 }
@@ -54,6 +52,12 @@ while (( "$#" )); do
   elif [[ ${1} == '-l' || ${1} == '--license' ]]; then
     project_license=${2}
 
+  elif [[ ${1} == '--disable-config' ]]; then
+    config_file=""
+
+  elif [[ ${1} == '--disable-git' ]]; then
+    git_setup=false
+
   elif [[ ${1} == '-h' || ${1} == '--help' ]]; then
     echo "
     Flags:
@@ -75,6 +79,7 @@ done
 
 echo ""
 
+source ${config_file}
 
 setup_project_name () {
   if [[ -z ${project_name} ]]; then
@@ -310,7 +315,7 @@ if [[ ${use_default} == false ]]; then
   setup_project_type
 fi
 setup_git
-setup_fvm #todo
+setup_fvm 
 setup_license
 
 
