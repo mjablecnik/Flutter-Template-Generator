@@ -8,6 +8,7 @@ else
   config_file=${ftg_dir_path}/config
 fi
 
+ftg_project_name=ftg_project_template
 template_path=${ftg_dir_path}/templates
 file_path=${ftg_dir_path}/files
 use_default=false
@@ -142,39 +143,39 @@ setup_state_manager () {
       echo ""
       break
     done
+  
+    if ! _contains "${state_managers_list}" "${state_manager}"; then
+      echo "Selected wrong number."
+      exit 1
+    fi
   else
     echo "Package for state management is: " ${state_manager} 
     echo ""
   fi
-  
-  if ! _contains "${state_managers_list}" "${state_manager}"; then
-    echo "Selected wrong number."
-    exit 1
-  fi
 }
 
-setup_folder_organization () {
-  local folder_organization_list=$(ls ${template_path}/${state_manager} -l | grep '^d' | awk "{print \$(NF)}")
-  if [[ -z ${folder_organization_list} ]]; then
+setup_folders_organization () {
+  local folders_organization_list=$(ls ${template_path}/${state_manager} -l | grep '^d' | awk "{print \$(NF)}")
+  if [[ -z ${folders_organization_list} ]]; then
     use_default=true
     folders_organization=default
   else
     if [[ -z ${folders_organization} ]]; then
       echo "Select your folders organization:"
-      select folders_organization in ${folder_organization_list};
+      select folders_organization in ${folders_organization_list};
       do
         echo "You picked ${folders_organization} (${REPLY})"
         echo ""
         break
       done
+    
+      if ! _contains "${folders_organization_list}" "${folders_organization}"; then
+        echo "Selected wrong number."
+        exit 1
+      fi
     else
       echo "Folders organization is: " ${folders_organization} 
       echo ""
-    fi
-    
-    if ! _contains "${folder_organization_list}" "${folders_organization}"; then
-      echo "Selected wrong number."
-      exit 1
     fi
   fi
 }
@@ -182,28 +183,32 @@ setup_folder_organization () {
 setup_project_type () {
   local project_type_list=$(ls ${template_path}/${state_manager}/${folders_organization} -l | grep '^d' | awk "{print \$(NF)}")
 
-  if [[ -z ${project_type} ]]; then
-    echo "Select project type:"
-    select project_type in ${project_type_list};
-    do
-      echo "You picked ${project_type} (${REPLY})"
-      echo ""
-      break
-    done
+  if [[ -z ${folders_organization_list} ]]; then
+    project_type=basic
   else
-    echo "Project type is: " ${project_type} 
-    echo ""
-  fi
-  
-  if ! _contains "${project_type_list}" "${project_type}"; then
-    echo "Selected wrong number."
-    exit 1
-  fi
+    if [[ -z ${project_type} ]]; then
+      echo "Select project type:"
+      select project_type in ${project_type_list};
+      do
+        echo "You picked ${project_type} (${REPLY})"
+        echo ""
+        break
+      done
+    
+      if ! _contains "${project_type_list}" "${project_type}"; then
+        echo "Selected wrong number."
+        exit 1
+      fi
+    else
+      echo "Project type is: " ${project_type} 
+      echo ""
+    fi
+  fi 
 }
 
 setup_git () {
   if [[ -z ${git_setup} ]]; then
-    read -p "Do you want to setup git? [Y/n]" -n 1 -r
+    read -p "Do you want to setup git? [Y/n] " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       git_setup=true
     else 
@@ -215,7 +220,7 @@ setup_git () {
 
 setup_fvm () {
   if [[ -z ${fvm_setup} ]]; then
-    read -p "Do you want to setup fvm? [Y/n]" -n 1 -r
+    read -p "Do you want to setup fvm? [Y/n] " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       fvm_setup=true
     else 
@@ -261,6 +266,8 @@ setup_license () {
 }
 
 print_result () {
+  echo ""
+  echo "Generated project with arguments:"
   echo "Project name is:" ${project_name}
   echo "Description is:" ${project_description}
   echo "Author is:" ${project_author}
@@ -270,7 +277,7 @@ print_result () {
 }
 
 generate () {
-  selected_template_path=${template_path}/${state_manager}/${folders_organization}/${project_type}
+  local selected_template_path=${template_path}/${state_manager}/${folders_organization}/${project_type}
   
   flutter create ${project_name}
   cd ${project_name}
@@ -290,7 +297,7 @@ generate () {
     cp ${file_path}/fvm_config.json .fvm/fvm_config.json
   fi
   
-  ack -l "ftg_project_template" | xargs perl -pi -E "s/ftg_project_template/${project_name}/g"
+  ack -l "${ftg_project_name}" | xargs perl -pi -E "s/${ftg_project_name}/${project_name}/g"
   ack -l "\{\{project_description\}\}" | xargs perl -pi -E "s/\{\{project_description\}\}/${project_description}/g"
   ack -l "\{\{project_author\}\}" | xargs perl -pi -E "s/\{\{project_author\}\}/${project_author}/g"
   ack -l "\{\{project_license\}\}" | xargs perl -pi -E "s/\{\{project_license\}\}/${project_license}/g"
@@ -311,7 +318,7 @@ setup_description
 setup_author_name 
 setup_state_manager
 if [[ ${use_default} == false ]]; then
-  setup_folder_organization
+  setup_folders_organization
 fi
 if [[ ${use_default} == false ]]; then
   setup_project_type
