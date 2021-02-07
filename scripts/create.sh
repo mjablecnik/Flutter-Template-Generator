@@ -196,8 +196,8 @@ setup_project_type () {
 
 setup_git () {
   if [[ -z ${git_setup} ]]; then
-    read -p "Do you want to setup git? [Y/n]" git_setup
-    if [[ -z ${git_setup} || ${git_setup} == Y || ${git_setup} == y ]]; then
+    read -p "Do you want to setup git? [Y/n]" -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
       git_setup=true
     else 
       git_setup=false
@@ -208,8 +208,8 @@ setup_git () {
 
 setup_fvm () {
   if [[ -z ${fvm_setup} ]]; then
-    read -p "Do you want to setup fvm? [Y/n]" fvm_setup
-    if [[ -z ${fvm_setup} || ${fvm_setup} == Y || ${fvm_setup} == y ]]; then
+    read -p "Do you want to setup fvm? [Y/n]" -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
       fvm_setup=true
     else 
       fvm_setup=false
