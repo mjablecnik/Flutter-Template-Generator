@@ -27,7 +27,7 @@ while (( "$#" )); do
 
   if [[ ${1} == '-p' || ${1} == '--project-path' ]]; then
     project_path=${2}
-    project_name=$(basename ${project_path})
+    project_name=$(basename ${project_path} | tr '[:upper:]' '[:lower:]' | sed -e 's/-/_/g')
   fi
   
   shift

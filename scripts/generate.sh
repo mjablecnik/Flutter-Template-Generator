@@ -46,7 +46,7 @@ show_help () {
 while (( "$#" )); do
 
   if [[ ${1} == '-n' || ${1} == '--name' ]]; then
-    project_name=${2}
+    project_name=$(echo ${2} | tr '[:upper:]' '[:lower:]' | sed -e 's/-/_/g')
 
   elif [[ ${1} == '-d' || ${1} == '--description' ]]; then
     project_description=${2}
