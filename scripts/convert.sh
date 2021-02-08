@@ -117,7 +117,7 @@ setup_folders_organization () {
 write_project_type () {
     echo ""
     echo "Write project type:"
-    read -p "(basic)" project_type
+    read -p "(basic) " project_type
     echo ""
     new_folders_organization=true
 
@@ -143,7 +143,7 @@ setup_project_type () {
         break
       done
 
-      if [[ ${folders_organization} == "Add new" ]]; then
+      if [[ ${project_type} == "Add new" ]]; then
         write_project_type
       fi
     fi
