@@ -5,7 +5,7 @@
   </a>
 </p>
 
-> Simple tool for create new Flutter project from a template.
+> Template generator which you can use for start of your new Flutter project.
 
 ## Requirements
 - ack >= 2.22
@@ -35,9 +35,9 @@ ftg help          # get help
 
 
 ## Configuration
-You can create your own cofiguration file where you can setup the most common informations.<br>
-FTG will be setup this specific informations from config automatically.<br>
-For find of your config you need setup FTG_CONFIG global variable with path to your config.<br>
+You can create your own config file where you can setup the most common informations.<br>
+FTG will setup project automatically with informations from config.<br>
+For find of your config you need setup `FTG_CONFIG` global variable with path to your config.<br>
 Example of my configuration is [here](config_example).<br>
 
 
