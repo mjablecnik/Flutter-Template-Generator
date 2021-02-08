@@ -1,8 +1,5 @@
 <h1 align="center">Welcome to Flutter-Template-Generator 👋</h1>
 <p>
-  <a href="https://www.npmjs.com/package/lifecycle" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/lifecycle.svg">
-  </a>
   <a href="https://choosealicense.com/licenses/mit/" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
@@ -35,7 +32,7 @@ ftg help          # get help
 
 👤 **Martin Jablečník**
 
-* Website: martin-jablecnik.cz
+* Website: [martin-jablecnik.cz](https://www.martin-jablecnik.cz)
 * Github: [@mjablecnik](https://github.com/mjablecnik)
 
 ## Show your support
