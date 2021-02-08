@@ -7,6 +7,12 @@
 
 > Simple tool for create new Flutter project from a template.
 
+## Requirements
+- ack >= 2.22
+- perl >= 5
+- bash >= 4.4.20
+- flutter >= 1.20.0
+
 ## Install
 
 ```sh
