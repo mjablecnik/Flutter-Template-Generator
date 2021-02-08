@@ -34,6 +34,13 @@ ftg help          # get help
 ## Example
 ![](ftg-example.gif)
 
+## Configuration
+You can create your own cofiguration file where you can setup the most common informations.<br>
+FTG will be setup this specific informations from config automatically.<br>
+For find of your config you need setup FTG_CONFIG global variable with path to your config.<br>
+Example of my configuration is [here](config_example).<br>
+
+
 ## Author
 
 👤 **Martin Jablečník**
