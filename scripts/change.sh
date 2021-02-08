@@ -12,7 +12,7 @@ if [[ -d ${sandbox_path}/${ftg_project_name} ]]; then
   echo "Sandbox directory already contain some project."
   read -p "Do you realy want to continue? Project in the sandbox directory will be replaced! [y/N] " -n 1 -r
 
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if [[ ${REPLY} =~ ^[Yy]$ ]]; then
     rm -rf ${sandbox_path}/${ftg_project_name}
   else 
     exit 0

@@ -218,7 +218,7 @@ setup_project_type () {
 setup_git () {
   if [[ -z ${git_setup} ]]; then
     read -p "Do you want to setup git? [Y/n] " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [[ ${REPLY} =~ ^[Yy]$ || -z ${REPLY} ]]; then
       git_setup=true
     else 
       git_setup=false
@@ -230,7 +230,7 @@ setup_git () {
 setup_fvm () {
   if [[ -z ${fvm_setup} ]]; then
     read -p "Do you want to setup fvm? [Y/n] " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [[ ${REPLY} =~ ^[Yy]$ || -z ${REPLY} ]]; then
       fvm_setup=true
     else 
       fvm_setup=false
@@ -284,6 +284,10 @@ print_result () {
   echo "    State manager:" ${state_manager}
   echo "    Folders organization is:" ${folders_organization}
   echo "    Project type is:" ${project_type}
+  echo "    Git enabled:" ${git_setup}
+  echo "    FVM enabled:" ${fvm_setup}
+  echo "    Flutter version:" ${flutter_version}
+  echo "    License:" ${project_license}
   echo ""
 }
 
