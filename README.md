@@ -32,7 +32,7 @@ ftg help          # get help
 ```
 
 ## Example
-![](ftg-example.gif)
+![](examples/ftg-example.gif)
 
 ## Configuration
 You can create your own cofiguration file where you can setup the most common informations.<br>
