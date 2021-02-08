@@ -17,8 +17,7 @@
 
 ```sh
 git clone https://github.com/mjablecnik/Flutter-Template-Generator.git
-cd Flutter-Template-Generator
-export PATH=$PATH:$(pwd)/bin
+export PATH=$PATH:$(pwd)/Flutter-Template-Generator/bin
 ```
 
 ## Usage
@@ -33,6 +32,7 @@ ftg help          # get help
 
 ## Example
 ![](examples/ftg-example.gif)
+
 
 ## Configuration
 You can create your own cofiguration file where you can setup the most common informations.<br>

@@ -11,7 +11,7 @@ Generate some template in sandbox folder and edit it there.
 
 ## ftg convert
 Convert some existing project from sandbox folder into FTG template.<br>
-You can use `--project-path` option for specific different path.
+You can use `--project-path` option for specific a different path.
 
 [example video](examples/ftg-convert-example.mp4)
 
