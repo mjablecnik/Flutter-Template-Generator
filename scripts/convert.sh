@@ -36,14 +36,21 @@ done
 setup_project () {
   local project_list=$(ls ${sandbox_path} -l | grep '^d' | awk "{print \$(NF)}")
   if [[ -z ${project_path} ]]; then
-    echo "What project you want to convert?"
-    select project_name in ${project_list};
-    do
-      echo "You picked ${ftg_project_name} (${REPLY})"
-      project_path=${sandbox_path}/${ftg_project_name}
+    if [[ -d ${sandbox_path}/${ftg_project_name} ]]; then
+      echo "What project do you want to convert?"
+      select project_name in ${project_list};
+      do
+        echo "You picked ${ftg_project_name} (${REPLY})"
+        project_path=${sandbox_path}/${ftg_project_name}
+        echo ""
+        break
+      done
+    else 
+      echo "No project exists in path: ${sandbox_path}"
+      echo "Please move there a project which you want to convert."
       echo ""
-      break
-    done
+      exit 1
+    fi
   fi
 }
 

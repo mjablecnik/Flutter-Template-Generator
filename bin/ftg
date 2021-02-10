@@ -71,13 +71,15 @@ After all changes you can run command: \`ftg convert\` for save.
 elif [[ ${1} == convert ]]; then
   if [[ ${2} == help ]]; then
     echo "
-If you have some already existing project which you would like to convert into ftg template, 
-you can move it into sandbox directory and run command: \`ftg convert\`,
-or run command: ftg convert --project-path <path of your project> 
-for convert it without moving into any directory.
+If you want to convert some your existing project into FTG template, 
+you can run command: \`ftg convert <path of your project>\` 
     "
   else
-    bash ${script_path}/convert.sh "${@}"
+    if [[ -z ${2} ]]; then
+      bash ${script_path}/convert.sh 
+    else
+      bash ${script_path}/convert.sh --project-path "${2}"
+    fi
   fi
 elif [[ ${1} == clean ]]; then
   rm -rf ${ftg_dir_path}/sandbox/* 
