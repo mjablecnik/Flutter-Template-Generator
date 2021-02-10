@@ -31,7 +31,7 @@ ftg help          # get help
 ```
 
 ## Example
-![](examples/ftg-example.gif)
+![](ftg-example.gif)
 
 
 ## Configuration
