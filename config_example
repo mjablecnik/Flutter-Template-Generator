@@ -4,11 +4,11 @@ project_name=
 project_description=
 project_author="Martin Jablečník"
 state_manager="GetX"
-folders_organization="mvc-function-first"
-project_type="basic"
+folders_organization="mvc-feature-first"
+project_type=
 git_setup=true    # true or false
-fvm_setup=true    # true or false
-flutter_version="stable"     # all fvm possible versions (master, stable, alpha, beta, 2.7.0, 2.12.0, etc..)
+fvm_setup=false    # true or false
+flutter_version=     # all fvm possible versions (master, stable, alpha, beta, 2.7.0, 2.12.0, etc..)
 
 ## All possible licenses:
 #  GNU GPLv3
