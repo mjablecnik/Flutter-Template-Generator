@@ -13,14 +13,14 @@ class TrackerRepository extends GetxService {
     return tracker;
   }
 
-  Future<Tracker> update(Tracker tracker) async {
-    tracker.id = await db.update(
+  Future<int> update(Tracker tracker) async {
+    tracker.updated = DateTime.now();
+    await db.update(
       TrackerTable.tableName,
       tracker.toSqlMap(),
       where: '${TrackerTable.id} = ?',
       whereArgs: [tracker.id],
     );
-    return tracker;
   }
 
   Future<int> delete(int id) async {
